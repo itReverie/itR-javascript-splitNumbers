@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>Sort Code</title>
+  </head>
+  <body>
+    <form id="formSortCode">
+        <input id="SortCode0" onkeydown="var e=this; setTimeout(function(){onInputField(e);}, 8);"  onpaste="var e=this; setTimeout(function(){onPasteSortCode(e);}, 4);"/>
+        <input id="SortCode1" onkeydown="var e=this; setTimeout(function(){onInputField(e);}, 8);"/>
+        <input id="SortCode2" onkeydown="var e=this; setTimeout(function(){onInputField(e);}, 8);"/>
+    </form>
+
+    <script type="text/javascript">
+
+
+    function onInputField(a)
+    {
+      numberCheckSortCode(a);
+      maxLengthCheck(a);
+      //minLengthCheck(a);
+      skipIfMax(a);
+    }
+
+    function onPasteSortCode(data)
+    {
+      if (numberCheckSortCode(data))
+      {
+        splitSortCode(data);
+      }
+    }
+
+    function skipIfMax(element) {
+      max = parseInt(2)
+      if (element.value.length >= max && element.nextElementSibling) {
+        element.nextElementSibling.focus();
+      }
+    }
+
+    function splitSortCode(str)
+    {
+          var result = String(str.value).match(/.{1,2}/g);
+          var numbers = result.map(Number);
+          for (var i=0; i <= 2; i++)
+          {
+            document.getElementById('SortCode'+i).value = numbers[i];
+          }
+   }
+
+   function numberCheckSortCode(object) {
+       object.value = object.value.replace(/[^0-9]/gi, "");
+       if (typeof object.value === 'undefined' || object.value === null || object.value === '') {
+       return false;
+   } else {
+     return true;
+   }
+   }
+
+
+
+
+
+
+
+   function minLengthCheck(object) {
+       if (object.value.length < 2) {
+           object.value = object.value.slice(0, 2);
+       }
+   }
+
+   function maxLengthCheck(object) {
+       if (object.value.length > 2) {
+           object.value = object.value.slice(0, 2);
+       }
+   }
+    </script>
+  </body>
+</html>
